@@ -11,7 +11,7 @@
     <?php echo $this->formRow($beerForm->get('img')); ?>
 </div>
 
-<?php if ($beerForm->has('id')): ?>
+<?php if ($beerForm->has('id') &&  $beerForm->get('id')->getValue() != ""): ?>
     <?php echo $this->formElement($beerForm->get('id')) ?>
 <?php endif;?>
 

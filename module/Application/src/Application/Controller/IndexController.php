@@ -25,13 +25,13 @@ class IndexController extends AbstractActionController
     public function createAction()
     {
         $form = $this->getServiceLocator()->get('Application\Form\Beer');
-        $form->setAttribute('action', '/insert');
-        $form->get('send')->setAttribute('value', 'Salvar');
+        $form->setAttribute('action', '/save');
+        $form->get('send')->setAttribute('value', 'Inserir');
 
         return new ViewModel(['beerForm' => $form]);
     }
 
-    public function insertAction()
+    public function saveAction()
     {
         $form = $this->getServiceLocator()->get('Application\Form\Beer');
         $form->setAttribute('action', '/insert');
@@ -55,4 +55,35 @@ class IndexController extends AbstractActionController
 
         return new ViewModel(['beerForm' => $form]);
     }
+
+    public function deleteAction()
+    {
+        $tableGateway = $this->getServiceLocator()->get('Application\Model\BeerTableGateway');
+        $id = $this->params()->fromRoute('id', 0);
+        if($id === 0) {
+            throw new InvalidArgumentException("Id inválido");
+        }
+        $tableGateway->delete($id);
+        return $this->redirect()->toUrl('/');
+    }
+
+    public function editAction()
+    {
+        $id = $this->params()->fromRoute('id', 0);
+        if($id === 0) {
+            throw new InvalidArgumentException("Id inválido");
+        }
+        $tableGateway = $this->getServiceLocator()->get('Application\Model\BeerTableGateway');
+        $beer = $tableGateway->get($id);
+
+        $form = $this->getServiceLocator()->get('Application\Form\Beer');
+        $form->setAttribute('action', '/save');
+        $form->get('send')->setAttribute('value', 'Salvar');
+        $form->bind($beer);
+
+        $view = new ViewModel(['beerForm' => $form]);
+        $view->setTemplate('application/index/create');
+        return $view;
+    }
+
 }

@@ -30,13 +30,39 @@ return array(
                     ),
                 ),
             ),
-            'insert' => array(
+            'save' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/insert',
+                    'route'    => '/save',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
-                        'action'     => 'insert',
+                        'action'     => 'save',
+                    ),
+                ),
+            ),
+            'delete' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route'    => '/delete/[:id]',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'delete',
+                    ),
+                ),
+            ),
+            'edit' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route'    => '/edit/[:id]',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'edit',
                     ),
                 ),
             ),

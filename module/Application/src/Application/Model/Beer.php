@@ -84,4 +84,8 @@ class Beer
         $this->style  = (!empty($data['style'])) ? $data['style'] : null;
         $this->img  = (!empty($data['img'])) ? $data['img'] : null;
     }
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
 }

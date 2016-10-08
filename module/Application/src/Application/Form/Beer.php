@@ -35,6 +35,11 @@ class Beer extends Form
         ]);
 
         $this->add([
+            'name' => 'id',
+            'type'  => 'hidden',
+        ]);
+
+        $this->add([
             'name' => 'send',
             'type'  => 'Submit',
             'attributes' => [
